@@ -1,0 +1,19 @@
+<mat-form-field [floatLabel]="isLoading || (!isOpen && selected.value === null) ? 'never' : 'auto'">
+	<mat-select required placeholder="Choose one" #selectControl (openedChange)="openChanged($event)" [panelClass]="isLoading || !isOpen ? 'hide-dummy-option' : ''"
+	 [formControl]="selected">
+		<mat-option *ngIf="options === null || !options.length" disabled></mat-option>
+		<mat-option *ngFor="let option of options" [value]="option.data">
+			{{option.tag}}
+		</mat-option>
+	</mat-select>
+
+	<mat-label *ngIf="isLoading">
+		<div class="select-placeholder-container">
+			<span>Loading...</span>
+			<mat-spinner class="spinner" diameter="20"></mat-spinner>
+		</div>
+  </mat-label>
+
+  <mat-error *ngIf="selected.invalid">{{getErrorMessage()}}</mat-error>
+  <mat-hint>{{hint}}</mat-hint>
+</mat-form-field>
